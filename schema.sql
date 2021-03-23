@@ -29,5 +29,4 @@ SELECT * FROM employee
 SELECT * FROM department
 SELECT * FROM roles
 
-INSERT INTO employee (first_name, last_name, role_id)
-VALUES ('Tim', 'Morse', 13)
+

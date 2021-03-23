@@ -119,7 +119,7 @@ const removeEmployee = () => {
                 },
                 (err) => {
                     if (err) throw err;
-                    console.log('Employee successfully deleted');
+                    console.log('Employee successfully deleted!');
                     startDatabase();
                 }
             )
@@ -127,5 +127,14 @@ const removeEmployee = () => {
 
     })
 };
+
+const viewDepartment = () => {
+    connection.query('SELECT * FROM department'), (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        startDatabase();
+    }
+};
+
 
 startDatabase();
