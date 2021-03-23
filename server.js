@@ -53,6 +53,42 @@ const viewEmployees = () => {
         startDatabase();
     })
 
-}
+};
+
+const addEmployee = () => {
+    inquirer
+        .prompt([
+        {
+            name: 'firstName',
+            type: 'input',
+            message: 'What is the first name of the new employee?',
+        },
+        {
+            name: 'lastName',
+            type: 'input',
+            message: 'What is the last name of the new employee?',
+        },
+        {
+            name: 'roleID',
+            type: 'input',
+            message: 'What is the role ID of the new employee?',
+        },
+    ])
+    .then((answer) => {
+        connection.query(
+            'INSERT INTO employee SET ?',
+            {
+                first_name: answer.firstName,
+                last_name: answer.lastName,
+                role_id: answer.roleID,
+            },
+            (err) => {
+                if (err) throw err;
+                console.log('Successfully added employee!');
+                startDatabase();
+            }
+        );
+    });
+};
 
 startDatabase();
