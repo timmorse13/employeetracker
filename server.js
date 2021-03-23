@@ -91,4 +91,41 @@ const addEmployee = () => {
     });
 };
 
+const removeEmployee = () => {
+    connection.query('SELECT * FROM employee', (err, results) => {
+        if (err) throw err;
+        console.table(results);
+    
+    inquirer
+        .prompt([
+            {
+                name: 'deleteEmployee',
+                type: 'list',
+                message: 'Choose an employee to delete',
+                choices() {
+                    const empArr = [];
+                    results.forEach(({ role_id }) => {
+                        empArr.push(role_id);
+                   });
+                   return empArr;
+                }
+            }
+        ])
+        .then((answer) => {
+            connection.query(
+                'DELETE FROM employee WHERE ?',
+                {
+                    role_id: answer.deleteEmployee
+                },
+                (err) => {
+                    if (err) throw err;
+                    console.log('Employee successfully deleted');
+                    startDatabase();
+                }
+            )
+        })
+
+    })
+};
+
 startDatabase();
