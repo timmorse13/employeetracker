@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
 });
 
 
-const start = () => {
+const startDatabase = () => {
     inquirer
       .prompt({
           name: 'start',
@@ -44,4 +44,15 @@ const start = () => {
               connection.end();
           }
       });
+};
+
+const viewEmployees = () => {
+    connection.query('SELECT * FROM employee', (err, results) => {
+        if (err) throw err;
+        console.table(results);
+        startDatabase();
+    })
+
 }
+
+startDatabase();
